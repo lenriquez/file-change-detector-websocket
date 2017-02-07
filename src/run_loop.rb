@@ -1,12 +1,11 @@
-require 'socket'
 require 'singleton'
 
 class RunLoop
   include Singleton
 
   def initializer
-    @queue = []
-    @server = TCPServer.new('localhost', 2345)
+    @queue   = []
+    @clients = []
   end
 
   def add_job( name, job )
