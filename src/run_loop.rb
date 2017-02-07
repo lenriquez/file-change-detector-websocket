@@ -1,5 +1,8 @@
 require 'singleton'
 
+# This class is responsable to execute the loop that will delegate to other
+# classes the new connections checking, file change detection
+# and message sending
 class RunLoop
   include Singleton
 
@@ -8,18 +11,12 @@ class RunLoop
     @clients = []
   end
 
-  def add_job( name, job )
+  def add_job(name, job) end
 
-  end
-
-  def remove_job( name )
-
-  end
+  def remove_job(name) end
 
   def loop
     loop do
-
     end
   end
-
 end

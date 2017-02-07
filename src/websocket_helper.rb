@@ -1,26 +1,26 @@
 require 'digest/sha1'
 
+# WebSocket related methods that can be reused and do not hold state
 module WebSocketHelper
   class << self
-
     # Extract key from header
-    def get_websocket_key header
-      return header.match(/^Sec-WebSocket-Key: (\S+)/)[1]
+    def get_websocket_key(header)
+      header.match(/^Sec-WebSocket-Key: (\S+)/)[1]
     end
 
-    # Tem=plate for header 
-    def prepare_header response_key
-      socket.write <<-eos.gsub(/\s+/, " ").strip
+    # Tem=plate for header
+    def prepare_header(response_key)
+      socket.write <<-eos.gsub(/\s+/, ' ').strip
         HTTP/1.1 101 Switching Protocols
         Upgrade: websocket
         Connection: Upgrade
-        Sec-WebSocket-Accept: #{ response_key }
+        Sec-WebSocket-Accept: #{response_key}
 
         eos
     end
 
     def generate_new_key(key, string = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')
-      Digest::SHA1.base64digest([key, string ].join)
+      Digest::SHA1.base64digest([key, string].join)
     end
   end
 end
